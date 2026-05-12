@@ -19,7 +19,7 @@ docker run -d \
   -e POSTGRES_PASSWORD=password \
   -e POSTGRES_DB=urlshortener \
   -p 5433:5432 \
-  postgres:15
+  postgres:18
 ```
 
 **2. Install dependencies**
