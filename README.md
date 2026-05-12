@@ -5,43 +5,43 @@ A URL shortening service built with Python Flask and PostgreSQL. Paste a long UR
 ## How it works
 
 ```
-POST /shorten   { url: "https://very-long-url.com" }  →  returns "abc123"
+POST /shorten   { url: "https://very-long-url.com" }  →  returns "sho.rt/abc123"
 GET  /abc123                                          →  302 redirect to https://very-long-url.com
 ```
 
-## Run locally
+## Run locally with Docker Compose
 
-**1. Start Postgres**
+**1. Clone the repo**
 ```bash
-docker run -d \
-  --name postgres \
-  -e POSTGRES_USER=user \
-  -e POSTGRES_PASSWORD=password \
-  -e POSTGRES_DB=urlshortener \
-  -p 5433:5432 \
-  postgres:18
+git clone https://github.com/f-eighty7/url-shortener.git
+cd url-shortener
 ```
 
-**2. Install dependencies**
-```bash
-python -m venv venv
-source venv/bin/activate
-pip install flask flask-sqlalchemy psycopg2-binary
+**2. Create a `.env` file**
+```
+DATABASE_URL=postgresql://user:password@db:5432/urlshortener
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
 ```
 
-**3. Run the app**
+**3. Start the app**
 ```bash
-flask --app app run
+docker compose -f docker-compose.dev.yml up --build
 ```
 
-**4. Test it**
-```bash
-# Shorten a URL
-curl -X POST http://localhost:5000/shorten -d "url=https://google.com"
-# Returns a short code e.g. "abc123"
+Visit `http://localhost:5000`
 
-# Follow the short link (open in browser or curl -L)
-curl -L http://localhost:5000/abc123
+## Project structure
+
+```
+src/
+├── app.py          # Flask routes
+├── models.py       # SQLAlchemy model
+└── templates/
+    └── index.html  # HTML form
+Dockerfile.dev
+docker-compose.dev.yml
+requirements.txt
 ```
 
 ## Stack
@@ -49,10 +49,13 @@ curl -L http://localhost:5000/abc123
 - **Flask** — web framework
 - **PostgreSQL** — stores short code → long URL pairs
 - **Flask-SQLAlchemy** — ORM layer between Flask and Postgres
-- **Docker** — runs Postgres locally
+- **Docker + Docker Compose** — containerised local development
+- **Gunicorn** — production WSGI server (coming in production Dockerfile)
 
 ## Roadmap
 
+- [x] Flask app with PostgreSQL
+- [x] Docker + Docker Compose setup
 - [ ] CI/CD with GitHub Actions
 - [ ] AWS infrastructure with Terraform (VPC, EC2, RDS)
 - [ ] Kubernetes deployment
