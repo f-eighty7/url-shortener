@@ -6,32 +6,43 @@ from models import db, Link
 
 load_dotenv()
 
-app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
+def create_app(database_url=None, testing=False):
+    app = Flask(__name__)
 
-db.init_app(app)
+    app.config["TESTING"] = testing
 
-with app.app_context():
-    db.create_all()
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url or os.environ.get(
+        "DATABASE_URL"
+    )
+
+    db.init_app(app)
+
+    if not app.config.get("TESTING"):
+        with app.app_context():
+            db.create_all()
+
+    @app.route("/")
+    def home():
+        return render_template("index.html")
+
+    @app.get("/<short_code>")
+    def redirect_url(short_code):
+        link = Link.query.filter_by(short_code=short_code).first_or_404()
+        return redirect(link.long_url)
+
+    @app.post("/shorten")
+    def shorten_url():
+        long_url = request.form["url"]
+        short_url = secrets.token_urlsafe(6)
+        new_link = Link(short_code=short_url, long_url=long_url)
+        db.session.add(new_link)
+        db.session.commit()
+        return render_template("index.html", short_url=request.host_url + short_url)
+
+    return app
 
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-@app.get("/<short_code>")
-def redirect_url(short_code):
-    link = Link.query.filter_by(short_code=short_code).first_or_404()
-    return redirect(link.long_url)
-
-
-@app.post("/shorten")
-def shorten_url():
-    long_url = request.form["url"]
-    short_url = secrets.token_urlsafe(6)
-    new_link = Link(short_code=short_url, long_url=long_url)
-    db.session.add(new_link)
-    db.session.commit()
-    return render_template("index.html", short_url=request.host_url + short_url)
+if __name__ == "__main__":
+    app = create_app()
+    app.run()
