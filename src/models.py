@@ -4,6 +4,7 @@ db = SQLAlchemy()
 
 
 class Link(db.Model):
+    """Database model representing a shortened URL mapping."""
     id = db.Column(db.Integer, primary_key=True)
     short_code = db.Column(db.String(10), unique=True, nullable=False)
     long_url = db.Column(db.String(500), nullable=False)
