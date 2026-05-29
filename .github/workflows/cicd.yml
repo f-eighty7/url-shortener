@@ -85,6 +85,8 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v7
         with:
+          context: .
+          file: ./Dockerfile.dev
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ vars.DOCKER_USERNAME }}/url-shortener:dev
