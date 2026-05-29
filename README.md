@@ -35,21 +35,22 @@ Open your browser and visit: `http://localhost:5000`
 
 ---
 
-## Run Automated Tests (Pytest)
+## Run Automated Tests & Coverage
 
-The automated tests can be run locally inside a virtual environment. The test suite uses a fast, temporary SQLite database in-memory so it does not affect real development or production data.
+The automated tests can be run locally inside your virtual environment. The test suite uses a fast, temporary SQLite database in-memory so it does not affect real development or database data.
 
-**1. Create a Python virtual environment**
+**1. Create a Python virtual environment & install dependencies**
 ```bash
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-**2. Run the tests**
+**2. Run the tests with coverage reporting**
 ```bash
-venv/bin/pytest -v
+venv/bin/pytest -v --cov=src --cov-report=xml --cov-report=html
 ```
+*(This generates a standard `coverage.xml` report and an interactive `htmlcov/` folder. Open `htmlcov/index.html` in your browser to inspect line-by-line coverage!).*
 
 ---
 
@@ -88,7 +89,7 @@ requirements.txt    # Project dependencies
 *   [x] Flask app with PostgreSQL database
 *   [x] Docker & Docker Compose setup
 *   [x] Automated tests with Pytest & SQLite
-*   [ ] CI/CD with GitHub Actions
+*   [x] CI/CD with GitHub Actions
 *   [ ] AWS cloud deployment with Terraform (VPC, EC2, RDS)
 *   [ ] Kubernetes deployment
 *   [ ] Prometheus & Grafana monitoring
