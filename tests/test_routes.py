@@ -1,4 +1,3 @@
-import pytest
 from models import Link
 
 URL = "https://www.google.se"
@@ -17,7 +16,7 @@ def test_shorten_url(client, db_fixture):
     assert response.status_code == 200
     assert b"Your short link" in response.data
     saved_link = Link.query.first()
-    assert saved_link != None
+    assert saved_link is not None
     assert saved_link.long_url == URL
 
 
