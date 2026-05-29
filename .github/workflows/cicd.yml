@@ -2,7 +2,7 @@ name: URL Shortener CI
 
 on:
   push:
-    branches: ["main", "dev", "feat/setup-cicd"]
+    branches: ["main", "dev"]
   pull_request:
     branches: ["main", "dev"]
 
