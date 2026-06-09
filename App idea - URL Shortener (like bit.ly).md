@@ -1,1 +1,0 @@
-/home/ak/devops-journey/Obsidian/App idea - URL Shortener (like bit.ly).md

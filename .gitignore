@@ -1,8 +1,38 @@
-venv/
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.db
 .env
+.venv/
+env/
+venv/
+venv.bak/
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
 .claude
 .antigravitycli
 App idea - URL Shortener (like bit.ly).md
 agy
+ssh-key-cloud/
+
+# Terraform
+*.tfvars
+*.tfvars.json
+terraform.tfstate*
+.terraform/
