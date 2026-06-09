@@ -90,6 +90,9 @@ requirements.txt    # Project dependencies
 *   [x] Docker & Docker Compose setup
 *   [x] Automated tests with Pytest & SQLite
 *   [x] CI/CD with GitHub Actions
-*   [ ] AWS cloud deployment with Terraform (VPC, EC2, RDS)
-*   [ ] Kubernetes deployment
+*   [x] AWS cloud deployment with Terraform (VPC, EC2, RDS)
+*   [ ] Production-grade Docker (Multi-stage build, Gunicorn WSGI, non-root user)
+*   [ ] Modular Terraform (Dev/Prod directories, remote S3/DynamoDB backend)
+*   [ ] DevSecOps Pipeline (Secret scanning with TruffleHog, Docker scanning with Trivy, IaC scanning with Tfsec)
+*   [ ] Kubernetes deployment (Local Minikube / EKS)
 *   [ ] Prometheus & Grafana monitoring

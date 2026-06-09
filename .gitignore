@@ -30,3 +30,9 @@ Thumbs.db
 App idea - URL Shortener (like bit.ly).md
 agy
 ssh-key-cloud/
+
+# Terraform
+*.tfvars
+*.tfvars.json
+terraform.tfstate*
+.terraform/
